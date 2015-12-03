@@ -1,8 +1,9 @@
 
 # Function for recoding academic year (will be modified to be more self-sustaining in the future)
 
-recode_acad_year <- function(data){
-  newyear <- car::recode(data$STRM,"
+recode_acad_year <- function(strm){
+  newyear <- c()
+  newyear <- car::recode(strm,"
                          c(1086, 1089, 1093) = '2008-2009';
                          c(1096, 1099, 1103) = '2009-2010';
                          c(1106, 1109, 1113) = '2010-2011';
