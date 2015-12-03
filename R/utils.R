@@ -1,7 +1,7 @@
 
 # Function for recoding academic year (will be modified to be more self-sustaining in the future)
 
-acadYear <- function(data){
+recode_acad_year <- function(data){
   newyear <- car::recode(data$STRM,"
                          c(1086, 1089, 1093) = '2008-2009';
                          c(1096, 1099, 1103) = '2009-2010';
@@ -14,10 +14,11 @@ acadYear <- function(data){
   newyear
 }
 
-# Function for creating a collapsed and expanded age group factor
-# Returns a list (expanded age, collapsed age)
 
-colAgeGroups <- function(data) {
+# Function for creating a collapsed and expanded age group factor
+# Returns a list of factor vectors (expanded age, collapsed age)
+
+recode_age <- function(data) {
   newage <- data$TERM_AGE
   newage[data$TERM_AGE < 21] = '20 or under'
   newage[data$TERM_AGE > 20 & data$TERM_AGE < 25] = '21-24'
@@ -36,3 +37,20 @@ colAgeGroups <- function(data) {
 
   ages
 }
+
+
+# Function for turning letter grades into numeric 100/0 success values
+
+calculate_success <- function(data) {
+  newgrade <- rep(0, times = length(data$OFFICIAL_GRADE))
+  newgrade[data$OFFICIAL_GRADE == 'A'
+           | data$OFFICIAL_GRADE == 'B'
+           | data$OFFICIAL_GRADE == 'C'
+           | data$OFFICIAL_GRADE == 'CR'
+           | data$OFFICIAL_GRADE == 'P'] <- 100
+
+  newgrade
+}
+
+
+#
