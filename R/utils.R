@@ -60,3 +60,79 @@ recode_course_level <- function(data){
   newLevel
 }
 
+# Function to recode student educational goal into a simpler factor
+
+recode_ed_goal <- function(data) {
+  newgoal <- as.character(c(1:length(data$MATR_GOAL_1_DESCR)))
+  newgoal[data$MATR_GOAL_1_DESCR == 'Not Applicable'] <- 'Undecided/Unknown'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Uncollected/Unreported'] <- 'Undecided/Unknown'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Undecided on goal'] <- 'Undecided/Unknown'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Undecided on Goal'] <- 'Undecided/Unknown'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Transfer to 4-Year after AA/AS'] <- 'Transfer'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Transfer to 4-Year w/o AA/AS'] <- 'Transfer'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Transfer to 4-Year- no AA/AS'] <- 'Transfer'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Acquire Job Skills Only'] <- 'Job Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Acquire New Job Skills, Only'] <- 'Job Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Maintain Certificate/License'] <- 'Job Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Update Job Skills, Only'] <- 'Job Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Update Job Skills Only'] <- 'Job Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Upgrade Job Skills Only'] <- 'Job Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Earn A  Vocational Certificate'] <- 'Degree/Certificate Obtainment'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Earn a Certificate' ] <- 'Degree/Certificate Obtainment'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Earn A Voc Degree w/o Transfer'] <- 'Degree/Certificate Obtainment'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Earn a Voc Degree- no Transfer'] <- 'Degree/Certificate Obtainment'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Earn AA/AS Degree w/o Transfer'] <- 'Degree/Certificate Obtainment'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Earn AA/AS Degree- no Transfer'] <- 'Degree/Certificate Obtainment'
+  newgoal[substr(data$MATR_GOAL_1_DESCR,1,7) == 'Four-yr'] <- 'Univ. Student taking CC classes'
+  newgoal[data$MATR_GOAL_1_DESCR == '`Four-yr student mtg 4-yr reqs'] <- 'Univ. Student taking CC classes'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Educational Development'] <- 'Personal/Basic Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Improve Basic Skills'] <- 'Personal/Basic Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Complete High School/GED'] <- 'Personal/Basic Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Discover Career Interests'] <- 'Personal/Basic Skills Development'
+  newgoal[data$MATR_GOAL_1_DESCR == 'Move from noncred to credit'] <- 'Personal/Basic Skills Development'
+  newgoal <- as.factor(newgoal)
+  newgoal
+}
+
+
+# Function to recode previously attained educational level of a student
+
+recode_ed_level <- function(data) {
+  newed <- as.character(c(1:length(data$ED_LEVEL_DESCR)))
+  newed[data$ED_LEVEL_DESCR == 'Not Applicable'] <- 'Non-traditional HS Proficiency'
+  newed[data$ED_LEVEL_DESCR == 'Received CA HS Proficiency'] <- 'Non-traditional HS Proficiency'
+  newed[data$ED_LEVEL_DESCR == 'GED/Cert. of Equiv/Completn'] <- 'Non-traditional HS Proficiency'
+  newed[data$ED_LEVEL_DESCR == 'Adult School'] <- 'Below HS-level Education'
+  newed[data$ED_LEVEL_DESCR == 'Have not received HS diploma'] <- 'Below HS-level Education'
+  newed[data$ED_LEVEL_DESCR == 'Foreign Secondary Schl Dipl'] <- 'High School Diploma'
+  newed[data$ED_LEVEL_DESCR == 'Received HS Diploma'] <- 'High School Diploma'
+  newed[data$ED_LEVEL_DESCR == 'Received Associate Degree'] <- 'AA Degree or higher'
+  newed[data$ED_LEVEL_DESCR == 'Bachelor Degree or higher'] <- 'AA Degree or higher'
+  newed[data$ED_LEVEL_DESCR == 'Special Admit/Advanced Ed'] <- 'Special Admit'
+  newed[data$ED_LEVEL_DESCR == 'Unknown'] <- 'Unknown'
+  newed[data$ED_LEVEL_DESCR == 'UNKNOWN'] <- 'Unknown'
+  newed[data$ED_LEVEL_DESCR == 'Uncollected/Unreported'] <- 'Unknown'
+  newed[is.na(data$ED_LEVEL_DESCR)] <- 'Unknown'
+  newed <- as.factor(newed)
+  newed
+}
+
+
+# Function for recoding collapsing ethnic groups
+
+recode_ethnic_group <- function(data) {
+  neweth <- recode(data$RACE, "'Asian' = 'Asian/Pac. Isl.';
+                   'Filipino' = 'Asian/Pac. Isl.';
+                   'Pacific Islander' = 'Asian/Pac. Isl.';
+                   'African American' = 'African American';
+                   'Hispanic/Latino' = 'Hispanic/Latino';
+                   'Native American' = 'Native American';
+                   'White' = 'White';
+                    else = 'Other/Mixed/Unknown'
+                   ")
+  neweth <- as.factor(neweth)
+  neweth
+}
+
+
+
