@@ -25,16 +25,12 @@ recode_age <- function(data) {
   newage[data$TERM_AGE > 24 & data$TERM_AGE < 30] = '25-29'
   newage[data$TERM_AGE > 29 & data$TERM_AGE < 40] = '30-39'
   newage[data$TERM_AGE > 39] = '40 or over'
-
   newage2 <- data$TERM_AGE
   newage2[data$TERM_AGE < 25] = 'Under 25'
   newage2[data$TERM_AGE > 24] = '25 or over'
-
   newage <- factor(newage)
   newage2 <- factor(newage2, levels = c('Under 25', '25 or over'), ordered = TRUE)
-
   ages <- list(newage, newage2)
-
   ages
 }
 
@@ -48,9 +44,19 @@ calculate_success <- function(data) {
            | data$OFFICIAL_GRADE == 'C'
            | data$OFFICIAL_GRADE == 'CR'
            | data$OFFICIAL_GRADE == 'P'] <- 100
-
   newgrade
 }
 
 
-#
+# Function for recoding course numbers in to course level variable (basic skills,
+# college level, transfer level)
+
+recode_course_level <- function(data){
+  newLevel <- c(1:length(data$CRSE_NUM))
+  newLevel[data$CRSE_NUM < 100] <- 'Basic Skills'
+  newLevel[data$CRSE_NUM > 99 & data$CRSE_NUM < 300] <- 'College-Level*'
+  newLevel[data$CRSE_NUM > 299] <- 'Transfer*'
+  newLevel <- as.factor(newLevel)
+  newLevel
+}
+
