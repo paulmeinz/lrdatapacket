@@ -135,4 +135,51 @@ recode_ethnic_group <- function(data) {
 }
 
 
+# Function for recoding freshman status
+
+recode_freshman_status <- function(data){
+  newstatus <- as.character(c(1:length(data$ENRL_STATUS_DESCR)))
+  newstatus[data$ENRL_STATUS_DESCR == 'First Time Student (New)'] <- 'First Time Freshman'
+  newstatus[data$ENRL_STATUS_DESCR != 'First Time Student (New)'] <- 'Other Student'
+  newstatus <- as.factor(newstatus)
+  newstatus
+}
+
+
+# Function for recoding instructional mode
+
+recode_inst_mode <- function(data){
+  newInst <- recode(data$INSTRUCTION_MODE, "
+                      c(2,4) = 'Lecture/Lab';
+                      c(71,72) = 'Internet';
+                      c(20,40,50,51,52,63,90,98) = 'Other';
+                      11 = NA")
+  newInst <- as.factor(newInst)
+  newInst
+}
+
+
+# Function for recoding language status
+
+recode_lang_status <- function(data) {
+  newlang <- as.character(c(1:length(data$PRIMARY_LANG)))
+  newlang[data$PRIMARY_LANG == 'English'] <- 'English Primary Language'
+  newlang[data$PRIMARY_LANG != 'English'] <- 'English NOT Primary Language'
+  newlang <- as.factor(newlang)
+  newlang
+}
+
+
+# Function for recoding gender into full names
+
+gender <- function(data) {
+  newgender <- c(1:length(data$GENDER))
+  newgender[data$GENDER == 'F'] <- 'Female'
+  newgender[data$GENDER == 'M'] <- 'Male'
+  newgender[data$GENDER == 'U'] <- 'Unknown'
+
+  newgender <- as.factor(newgender)
+  newgender
+}
+
 
