@@ -19,16 +19,16 @@ recode_acad_year <- function(strm){
 # Function for creating a collapsed and expanded age group factor
 # Returns a list of factor vectors (expanded age, collapsed age)
 
-recode_age <- function(data) {
-  newage <- data$TERM_AGE
-  newage[data$TERM_AGE < 21] = '20 or under'
-  newage[data$TERM_AGE > 20 & data$TERM_AGE < 25] = '21-24'
-  newage[data$TERM_AGE > 24 & data$TERM_AGE < 30] = '25-29'
-  newage[data$TERM_AGE > 29 & data$TERM_AGE < 40] = '30-39'
-  newage[data$TERM_AGE > 39] = '40 or over'
-  newage2 <- data$TERM_AGE
-  newage2[data$TERM_AGE < 25] = 'Under 25'
-  newage2[data$TERM_AGE > 24] = '25 or over'
+recode_age <- function(term_age) {
+  newage <- c()
+  newage[term_age < 21] = '20 or under'
+  newage[term_age > 20 & term_age < 25] = '21-24'
+  newage[term_age > 24 & term_age < 30] = '25-29'
+  newage[term_age > 29 & term_age < 40] = '30-39'
+  newage[term_age > 39] = '40 or over'
+  newage2 <- c()
+  newage2[term_age < 25] = 'Under 25'
+  newage2[term_age > 24] = '25 or over'
   newage <- factor(newage)
   newage2 <- factor(newage2, levels = c('Under 25', '25 or over'), ordered = TRUE)
   ages <- list(newage, newage2)
