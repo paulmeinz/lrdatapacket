@@ -52,11 +52,11 @@ calculate_success <- function(grades) {
 # Function for recoding course numbers in to course level variable (basic skills,
 # college level, transfer level)
 
-recode_course_level <- function(data){
-  newLevel <- c(1:length(data$CRSE_NUM))
-  newLevel[data$CRSE_NUM < 100] <- 'Basic Skills'
-  newLevel[data$CRSE_NUM > 99 & data$CRSE_NUM < 300] <- 'College-Level*'
-  newLevel[data$CRSE_NUM > 299] <- 'Transfer*'
+recode_course_level <- function(crse_num){
+  newLevel <- c(1:length(crse_num))
+  newLevel[crse_num < 100] <- 'Basic Skills'
+  newLevel[crse_num > 99 & crse_num < 300] <- 'College-Level*'
+  newLevel[crse_num > 299] <- 'Transfer*'
   newLevel <- as.factor(newLevel)
   newLevel
 }
