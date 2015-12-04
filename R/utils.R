@@ -38,13 +38,13 @@ recode_age <- function(term_age) {
 
 # Function for turning letter grades into numeric 100/0 success values
 
-calculate_success <- function(data) {
-  newgrade <- rep(0, times = length(data$OFFICIAL_GRADE))
-  newgrade[data$OFFICIAL_GRADE == 'A'
-           | data$OFFICIAL_GRADE == 'B'
-           | data$OFFICIAL_GRADE == 'C'
-           | data$OFFICIAL_GRADE == 'CR'
-           | data$OFFICIAL_GRADE == 'P'] <- 100
+calculate_success <- function(grades) {
+  newgrade <- rep(0, times = length(grades))
+  newgrade[grades == 'A'
+           | grades == 'B'
+           | grades == 'C'
+           | grades == 'CR'
+           | grades == 'P'] <- 100
   newgrade
 }
 
