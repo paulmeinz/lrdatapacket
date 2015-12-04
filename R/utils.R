@@ -98,22 +98,22 @@ recode_ed_goal <- function(matr_goal) {
 
 # Function to recode previously attained educational level of a student
 
-recode_ed_level <- function(data) {
-  newed <- as.character(c(1:length(data$ED_LEVEL_DESCR)))
-  newed[data$ED_LEVEL_DESCR == 'Not Applicable'] <- 'Non-traditional HS Proficiency'
-  newed[data$ED_LEVEL_DESCR == 'Received CA HS Proficiency'] <- 'Non-traditional HS Proficiency'
-  newed[data$ED_LEVEL_DESCR == 'GED/Cert. of Equiv/Completn'] <- 'Non-traditional HS Proficiency'
-  newed[data$ED_LEVEL_DESCR == 'Adult School'] <- 'Below HS-level Education'
-  newed[data$ED_LEVEL_DESCR == 'Have not received HS diploma'] <- 'Below HS-level Education'
-  newed[data$ED_LEVEL_DESCR == 'Foreign Secondary Schl Dipl'] <- 'High School Diploma'
-  newed[data$ED_LEVEL_DESCR == 'Received HS Diploma'] <- 'High School Diploma'
-  newed[data$ED_LEVEL_DESCR == 'Received Associate Degree'] <- 'AA Degree or higher'
-  newed[data$ED_LEVEL_DESCR == 'Bachelor Degree or higher'] <- 'AA Degree or higher'
-  newed[data$ED_LEVEL_DESCR == 'Special Admit/Advanced Ed'] <- 'Special Admit'
-  newed[data$ED_LEVEL_DESCR == 'Unknown'] <- 'Unknown'
-  newed[data$ED_LEVEL_DESCR == 'UNKNOWN'] <- 'Unknown'
-  newed[data$ED_LEVEL_DESCR == 'Uncollected/Unreported'] <- 'Unknown'
-  newed[is.na(data$ED_LEVEL_DESCR)] <- 'Unknown'
+recode_ed_level <- function(ed_level) {
+  newed <- as.character(c(1:length(ed_level)))
+  newed[ed_level == 'Not Applicable'] <- 'Non-traditional HS Proficiency'
+  newed[ed_level == 'Received CA HS Proficiency'] <- 'Non-traditional HS Proficiency'
+  newed[ed_level == 'GED/Cert. of Equiv/Completn'] <- 'Non-traditional HS Proficiency'
+  newed[ed_level == 'Adult School'] <- 'Below HS-level Education'
+  newed[ed_level == 'Have not received HS diploma'] <- 'Below HS-level Education'
+  newed[ed_level == 'Foreign Secondary Schl Dipl'] <- 'High School Diploma'
+  newed[ed_level == 'Received HS Diploma'] <- 'High School Diploma'
+  newed[ed_level == 'Received Associate Degree'] <- 'AA Degree or higher'
+  newed[ed_level == 'Bachelor Degree or higher'] <- 'AA Degree or higher'
+  newed[ed_level == 'Special Admit/Advanced Ed'] <- 'Special Admit'
+  newed[ed_level == 'Unknown'] <- 'Unknown'
+  newed[ed_level == 'UNKNOWN'] <- 'Unknown'
+  newed[ed_level == 'Uncollected/Unreported'] <- 'Unknown'
+  newed[is.na(ed_level)] <- 'Unknown'
   newed <- as.factor(newed)
   newed
 }
@@ -121,8 +121,8 @@ recode_ed_level <- function(data) {
 
 # Function for recoding collapsing ethnic groups
 
-recode_ethnic_group <- function(data) {
-  neweth <- recode(data$RACE, "'Asian' = 'Asian/Pac. Isl.';
+recode_ethnic_group <- function(ethnicity) {
+  neweth <- car::recode(ethnicity, "'Asian' = 'Asian/Pac. Isl.';
                    'Filipino' = 'Asian/Pac. Isl.';
                    'Pacific Islander' = 'Asian/Pac. Isl.';
                    'African American' = 'African American';
@@ -138,10 +138,10 @@ recode_ethnic_group <- function(data) {
 
 # Function for recoding freshman status
 
-recode_freshman_status <- function(data){
-  newstatus <- as.character(c(1:length(data$ENRL_STATUS_DESCR)))
-  newstatus[data$ENRL_STATUS_DESCR == 'First Time Student (New)'] <- 'First Time Freshman'
-  newstatus[data$ENRL_STATUS_DESCR != 'First Time Student (New)'] <- 'Other Student'
+recode_freshman_status <- function(status){
+  newstatus <- as.character(c(1:length(status)))
+  newstatus[status == 'First Time Student (New)'] <- 'First Time Freshman'
+  newstatus[status != 'First Time Student (New)'] <- 'Other Student'
   newstatus <- as.factor(newstatus)
   newstatus
 }
@@ -149,8 +149,8 @@ recode_freshman_status <- function(data){
 
 # Function for recoding instructional mode
 
-recode_inst_mode <- function(data){
-  newInst <- recode(data$INSTRUCTION_MODE, "
+recode_inst_mode <- function(mode){
+  newInst <- car::recode(mode, "
                       c(2,4) = 'Lecture/Lab';
                       c(71,72) = 'Internet';
                       c(20,40,50,51,52,63,90,98) = 'Other';
@@ -162,10 +162,10 @@ recode_inst_mode <- function(data){
 
 # Function for recoding language status
 
-recode_lang_status <- function(data) {
-  newlang <- as.character(c(1:length(data$PRIMARY_LANG)))
-  newlang[data$PRIMARY_LANG == 'English'] <- 'English Primary Language'
-  newlang[data$PRIMARY_LANG != 'English'] <- 'English NOT Primary Language'
+recode_lang_status <- function(lang) {
+  newlang <- as.character(c(1:length(lang)))
+  newlang[lang == 'English'] <- 'English Primary Language'
+  newlang[lang != 'English'] <- 'English NOT Primary Language'
   newlang <- as.factor(newlang)
   newlang
 }
@@ -173,11 +173,11 @@ recode_lang_status <- function(data) {
 
 # Function for recoding gender into full names
 
-gender <- function(data) {
-  newgender <- c(1:length(data$GENDER))
-  newgender[data$GENDER == 'F'] <- 'Female'
-  newgender[data$GENDER == 'M'] <- 'Male'
-  newgender[data$GENDER == 'U'] <- 'Unknown'
+recode_gender <- function(gender) {
+  newgender <- c(1:length(gender))
+  newgender[gender == 'F'] <- 'Female'
+  newgender[gender == 'M'] <- 'Male'
+  newgender[gender == 'U'] <- 'Unknown'
 
   newgender <- as.factor(newgender)
   newgender
