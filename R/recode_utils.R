@@ -55,12 +55,16 @@ recode_age <- function(term_age) {
 # Function for turning letter grades into numeric 100/0 success values
 
 calculate_success <- function(grades) {
-  newgrade <- rep(0, times = length(grades))
-  newgrade[grades == 'A'
-           | grades == 'B'
-           | grades == 'C'
-           | grades == 'CR'
-           | grades == 'P'] <- 100
+  newgrade <- rep(NA, times = length(grades))
+  newgrade[grades %in% c('A','B','C','CR','P')] <- 100
+  newgrade[grades %in% c('D','F','I','IP','MW','NC','NP','W')] <- 0
+
+  if (TRUE %in% is.na(newgrade)) {
+    warning('Grade to succes conversion detected idiosyncratic input. Ensure
+            that demographic names were passed in the correct order and/or that
+            the query pulled currently supported data.')
+  }
+
   newgrade
 }
 
