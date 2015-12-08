@@ -14,8 +14,10 @@ recode_acad_year <- function(strm) {
                          else = NA")
 
   if (TRUE %in% is.na(newyear)) {
-    warning('Term to year convesion produced NAs. Ensure that demographic
-             names were passed in the correct order')}
+    warning('Term to year conversion detected idiosyncratic input. Ensure that
+            demographic names were passed in the correct order and/or that the
+            query pulled currently supported data.')
+  }
 
   newyear <- as.factor(newyear)
   newyear
@@ -27,11 +29,11 @@ recode_acad_year <- function(strm) {
 
 recode_age <- function(term_age) {
 
-  if (!is.numeric(term_age)) {
-    warning('Age conversion detected non-numeric input. Ensure that demographic
-            names were passed in the correct order.')
+  if (!is.numeric(term_age) || TRUE %in% term_age > 100) {
+    warning('Age conversion detected idiosyncratic input. Ensure that demographic
+            names were passed in the correct order and/or that the query pulled
+            currently supported data.')
   }
-
 
   newage <- c()
   newage[term_age < 21] = '20 or under'
