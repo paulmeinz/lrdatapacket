@@ -15,7 +15,7 @@ recode_acad_year <- function(strm) {
 
   if (TRUE %in% is.na(newyear)) {
     warning('Term to year conversion detected idiosyncratic input. Ensure that
-            demographic names were passed in the correct order and/or that the
+            column names were passed in the correct order and/or that the
             query pulled currently supported data.')
   }
 
@@ -30,7 +30,7 @@ recode_acad_year <- function(strm) {
 recode_age <- function(term_age) {
 
   if (!is.numeric(term_age) || TRUE %in% term_age > 100) {
-    warning('Age conversion detected idiosyncratic input. Ensure that demographic
+    warning('Age conversion detected idiosyncratic input. Ensure that column
             names were passed in the correct order and/or that the query pulled
             currently supported data.')
   }
@@ -55,13 +55,14 @@ recode_age <- function(term_age) {
 # Function for turning letter grades into numeric 100/0 success values
 
 calculate_success <- function(grades) {
+
   newgrade <- rep(NA, times = length(grades))
   newgrade[grades %in% c('A','B','C','CR','P')] <- 100
   newgrade[grades %in% c('D','F','I','IP','MW','NC','NP','W')] <- 0
 
   if (TRUE %in% is.na(newgrade)) {
     warning('Grade to succes conversion detected idiosyncratic input. Ensure
-            that demographic names were passed in the correct order and/or that
+            that column names were passed in the correct order and/or that
             the query pulled currently supported data.')
   }
 
@@ -73,6 +74,13 @@ calculate_success <- function(grades) {
 # college level, transfer level)
 
 recode_course_level <- function(crse_num) {
+
+  if (!is.numeric(crse_num) || TRUE %in% term_age > 500) {
+    warning('Course number conversion detected idiosyncratic input. Ensure that
+            column names were passed in the correct order and/or that the query
+            pulled currently supported data.')
+  }
+
   newLevel <- c(1:length(crse_num))
   newLevel[crse_num < 100] <- 'Basic Skills'
   newLevel[crse_num > 99 & crse_num < 300] <- 'College-Level*'
