@@ -10,7 +10,13 @@ recode_acad_year <- function(strm) {
                          c(1116, 1119, 1123) = '2011-2012';
                          c(1126, 1129, 1133) = '2012-2013';
                          c(1136, 1139, 1143) = '2013-2014';
-                         c(1146, 1149, 1153) = '2014-2015'")
+                         c(1146, 1149, 1153) = '2014-2015';
+                         else = NA")
+
+  if (TRUE %in% is.na(newyear)) {
+    warning('Term to year convesion produced NAs. Ensure that demographic
+             names were passed in the correct order')}
+
   newyear <- as.factor(newyear)
   newyear
 }
@@ -20,6 +26,13 @@ recode_acad_year <- function(strm) {
 # Returns a list of factor vectors (expanded age, collapsed age)
 
 recode_age <- function(term_age) {
+
+  if (!is.numeric(term_age)) {
+    warning('Age conversion detected non-numeric input. Ensure that demographic
+            names were passed in the correct order.')
+  }
+
+
   newage <- c()
   newage[term_age < 21] = '20 or under'
   newage[term_age > 20 & term_age < 25] = '21-24'
