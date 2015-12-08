@@ -1,7 +1,7 @@
 
 # Function for recoding academic year (will be modified to be more self-sustaining in the future)
 
-recode_acad_year <- function(strm){
+recode_acad_year <- function(strm) {
   newyear <- c()
   newyear <- car::recode(strm,"
                          c(1086, 1089, 1093) = '2008-2009';
@@ -30,7 +30,8 @@ recode_age <- function(term_age) {
   newage2[term_age < 25] = 'Under 25'
   newage2[term_age > 24] = '25 or over'
   newage <- factor(newage)
-  newage2 <- factor(newage2, levels = c('Under 25', '25 or over'), ordered = TRUE)
+  newage2 <- factor(newage2, levels = c('Under 25', '25 or over'),
+                    ordered = TRUE)
   ages <- list(newage, newage2)
   ages
 }
@@ -52,7 +53,7 @@ calculate_success <- function(grades) {
 # Function for recoding course numbers in to course level variable (basic skills,
 # college level, transfer level)
 
-recode_course_level <- function(crse_num){
+recode_course_level <- function(crse_num) {
   newLevel <- c(1:length(crse_num))
   newLevel[crse_num < 100] <- 'Basic Skills'
   newLevel[crse_num > 99 & crse_num < 300] <- 'College-Level*'
@@ -138,7 +139,7 @@ recode_ethnic_group <- function(ethnicity) {
 
 # Function for recoding freshman status
 
-recode_freshman_status <- function(status){
+recode_freshman_status <- function(status) {
   newstatus <- as.character(c(1:length(status)))
   newstatus[status == 'First Time Student (New)'] <- 'First Time Freshman'
   newstatus[status != 'First Time Student (New)'] <- 'Other Student'
@@ -149,7 +150,7 @@ recode_freshman_status <- function(status){
 
 # Function for recoding instructional mode
 
-recode_inst_mode <- function(mode){
+recode_inst_mode <- function(mode) {
   newInst <- car::recode(mode, "
                       c(2,4) = 'Lecture/Lab';
                       c(71,72) = 'Internet';
