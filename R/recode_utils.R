@@ -137,7 +137,7 @@ recode_ed_goal <- function(matr_goal) {
 
 recode_ed_level <- function(ed_level) {
 
-  newed <- rep(NA, 1:length(ed_level))
+  newed <- rep(NA, length(ed_level))
   newed[ed_level == 'Not Applicable'] <- 'Non-traditional HS Proficiency'
   newed[ed_level == 'Received CA HS Proficiency'] <- 'Non-traditional HS Proficiency'
   newed[ed_level == 'GED/Cert. of Equiv/Completn'] <- 'Non-traditional HS Proficiency'
