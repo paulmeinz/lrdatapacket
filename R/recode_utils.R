@@ -94,7 +94,7 @@ recode_course_level <- function(crse_num) {
 
 recode_ed_goal <- function(matr_goal) {
 
-  newgoal <- rep(NA, 1:length(matr_goal))
+  newgoal <- rep(NA, length(matr_goal))
   newgoal[matr_goal == 'Not Applicable'] <- 'Undecided/Unknown'
   newgoal[matr_goal == 'Uncollected/Unreported'] <- 'Undecided/Unknown'
   newgoal[matr_goal == 'Undecided on goal'] <- 'Undecided/Unknown'
@@ -243,7 +243,7 @@ recode_lang_status <- function(lang) {
                       'Bahasa (Indonesian)', 'Bengali','Burmese',
                       'Chinese (Cantonese)', 'Chinese (Mandarin)',
                       'Chinese (Other)', 'Chinese (Shanghai)', 'Czech',
-                      'Danish','Dutch)', 'Farsi (Persian)', 'Finnish',
+                      'Danish','Dutch', 'Farsi (Persian)', 'Finnish',
                       'Flemish', 'French', 'German', 'Greek', 'Hebrew', 'Hindi',
                       'Hmong', 'Hungarian', 'Indian', 'Indian (Hindi)',
                       'Indian (Kannada)', 'Indian (Konkani)', 'Italian',
