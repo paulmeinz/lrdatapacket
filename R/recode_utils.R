@@ -48,7 +48,7 @@ recode_age <- function(term_age) {
   newage <- factor(newage)
   newage2 <- factor(newage2, levels = c('Under 25', '25 or over'),
                     ordered = TRUE)
-  ages <- list(newage, newage2)
+  ages <- list(age = newage, agecol = newage2)
   ages
 }
 
@@ -76,7 +76,7 @@ calculate_success <- function(grades) {
 
 recode_course_level <- function(crse_num) {
 
-  if (!is.numeric(crse_num) || TRUE %in% term_age > 500) {
+  if (!is.numeric(crse_num) || TRUE %in% crse_num > 500) {
     warning('Course number conversion detected idiosyncratic input. Ensure that
             column names were passed in the correct order and/or that the query
             pulled currently supported data.')
