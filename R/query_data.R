@@ -16,6 +16,14 @@ query_data <- function(connect_obj, query,
                                       'inst_mode','language','gender',
                                       'grade')) {
 
+  # Input validation
+  required <- c('id','term','subject','subject_long')
+  test <- required %in% demo_names
+
+  if (FALSE %in% test) {
+    stop(paste("demo_names must contain", required[!test], ";", sep = ' '))
+  }
+
   # Make query lowercase
   query <- tolower(query)
 
@@ -27,6 +35,11 @@ query_data <- function(connect_obj, query,
   # Assign column names in order
   for (i in 1:length(names(data))) {
     names(data)[i] <- demo_names[i]
+  }
+
+  # Additional input validation
+  if (length(names(data)) != length(demo_names)){
+    stop("Columns in dataset are not the same length as names provided")
   }
 
   lrdata <- data.frame(id = data[,'id'], term = data[,'term'])
@@ -87,6 +100,9 @@ query_data <- function(connect_obj, query,
       lrdata <- data.frame(lrdata, gender = recode_gender(data[,i]))
     }
   }
+
+  # Make the data have a lrdataset class for later validation
+  class(lrdata) <- append(class(lrdata), "lrdataset")
 
   lrdata
 }
