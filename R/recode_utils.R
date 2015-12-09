@@ -1,5 +1,6 @@
 
-# Function for recoding academic year (will be modified to be more self-sustaining in the future)
+# Function for recoding academic year (will be modified to be more
+# self-sustaining in the future)
 
 recode_acad_year <- function(strm) {
   newyear <- c()
@@ -92,7 +93,8 @@ recode_course_level <- function(crse_num) {
 # Function to recode student educational goal into a simpler factor
 
 recode_ed_goal <- function(matr_goal) {
-  newgoal <- as.character(c(1:length(matr_goal)))
+
+  newgoal <- rep(NA, 1:length(matr_goal))
   newgoal[matr_goal == 'Not Applicable'] <- 'Undecided/Unknown'
   newgoal[matr_goal == 'Uncollected/Unreported'] <- 'Undecided/Unknown'
   newgoal[matr_goal == 'Undecided on goal'] <- 'Undecided/Unknown'
@@ -119,6 +121,13 @@ recode_ed_goal <- function(matr_goal) {
   newgoal[matr_goal == 'Complete High School/GED'] <- 'Personal/Basic Skills Development'
   newgoal[matr_goal == 'Discover Career Interests'] <- 'Personal/Basic Skills Development'
   newgoal[matr_goal == 'Move from noncred to credit'] <- 'Personal/Basic Skills Development'
+
+  if (TRUE %in% is.na(newgoal)) {
+    warning('Matriculation goal conversion detected idiosyncratic input. Ensure
+            that column names were passed in the correct order and/or that
+            the query pulled currently supported data.')
+  }
+
   newgoal <- as.factor(newgoal)
   newgoal
 }
@@ -127,7 +136,8 @@ recode_ed_goal <- function(matr_goal) {
 # Function to recode previously attained educational level of a student
 
 recode_ed_level <- function(ed_level) {
-  newed <- as.character(c(1:length(ed_level)))
+
+  newed <- rep(NA, 1:length(ed_level))
   newed[ed_level == 'Not Applicable'] <- 'Non-traditional HS Proficiency'
   newed[ed_level == 'Received CA HS Proficiency'] <- 'Non-traditional HS Proficiency'
   newed[ed_level == 'GED/Cert. of Equiv/Completn'] <- 'Non-traditional HS Proficiency'
@@ -142,6 +152,13 @@ recode_ed_level <- function(ed_level) {
   newed[ed_level == 'UNKNOWN'] <- 'Unknown'
   newed[ed_level == 'Uncollected/Unreported'] <- 'Unknown'
   newed[is.na(ed_level)] <- 'Unknown'
+
+  if (TRUE %in% is.na(newed)) {
+    warning('Ed level conversion detected idiosyncratic input. Ensure
+            that column names were passed in the correct order and/or that
+            the query pulled currently supported data.')
+  }
+
   newed <- as.factor(newed)
   newed
 }
@@ -157,8 +174,17 @@ recode_ethnic_group <- function(ethnicity) {
                    'Hispanic/Latino' = 'Hispanic/Latino';
                    'Native American' = 'Native American';
                    'White' = 'White';
-                    else = 'Other/Mixed/Unknown'
+                    c('NULL','Multi-Race','Unknown',
+                      'Other Non-White') = 'Other/Mixed/Unknown';
+                    else = NA
                    ")
+
+  if (TRUE %in% is.na(neweth)) {
+    warning('Ethnicity conversion detected idiosyncratic input. Ensure
+            that column names were passed in the correct order and/or that
+            the query pulled currently supported data.')
+  }
+
   neweth <- as.factor(neweth)
   neweth
 }
@@ -167,9 +193,20 @@ recode_ethnic_group <- function(ethnicity) {
 # Function for recoding freshman status
 
 recode_freshman_status <- function(status) {
-  newstatus <- as.character(c(1:length(status)))
+
+  newstatus <- rep(NA, times = length(status))
   newstatus[status == 'First Time Student (New)'] <- 'First Time Freshman'
-  newstatus[status != 'First Time Student (New)'] <- 'Other Student'
+  newstatus[status %in% c('NULL', 'Continuing Student',
+                          'First Time Transfer Student','Returning Student',
+                          'Special Admit','Unknown/Unspecified')
+            ] <- 'Other Student'
+
+  if (TRUE %in% is.na(newstatus)) {
+    warning('Freshman status conversion detected idiosyncratic input. Ensure
+            that column names were passed in the correct order and/or that
+            the query pulled currently supported data.')
+  }
+
   newstatus <- as.factor(newstatus)
   newstatus
 }
@@ -178,11 +215,20 @@ recode_freshman_status <- function(status) {
 # Function for recoding instructional mode
 
 recode_inst_mode <- function(mode) {
+
   newInst <- car::recode(mode, "
                       c(2,4) = 'Lecture/Lab';
                       c(71,72) = 'Internet';
                       c(20,40,50,51,52,63,90,98) = 'Other';
-                      11 = NA")
+                      11 = 'N/A';
+                      else = NA")
+
+  if (TRUE %in% is.na(newInst)) {
+    warning('Instruction mode conversion detected idiosyncratic input. Ensure
+            that column names were passed in the correct order and/or that
+            the query pulled currently supported data.')
+  }
+
   newInst <- as.factor(newInst)
   newInst
 }
@@ -191,9 +237,32 @@ recode_inst_mode <- function(mode) {
 # Function for recoding language status
 
 recode_lang_status <- function(lang) {
-  newlang <- as.character(c(1:length(lang)))
+  newlang <- rep(NA, times = length(lang))
   newlang[lang == 'English'] <- 'English Primary Language'
-  newlang[lang != 'English'] <- 'English NOT Primary Language'
+  newlang[lang %in% c('Afrikaans','American Sign Language','Amharic','Arabic',
+                      'Bahasa (Indonesian)', 'Bengali','Burmese',
+                      'Chinese (Cantonese)', 'Chinese (Mandarin)',
+                      'Chinese (Other)', 'Chinese (Shanghai)', 'Czech',
+                      'Danish','Dutch)', 'Farsi (Persian)', 'Finnish',
+                      'Flemish', 'French', 'German', 'Greek', 'Hebrew', 'Hindi',
+                      'Hmong', 'Hungarian', 'Indian', 'Indian (Hindi)',
+                      'Indian (Kannada)', 'Indian (Konkani)', 'Italian',
+                      'Japanese', 'Kiswahili', 'Korean', 'Laotian', 'Latvian',
+                      'Lithuanian', 'Malay', 'Norwegian', 'Other', 'Polish',
+                      'Portuguese', 'Rumanian', 'Russian', 'Serbo-Croatian',
+                      'Slovak', 'Spanish', 'Swahili', 'Swedish',
+                      'Tagalog (Philippines)', 'Tamil (Ceylon)',
+                      'Tamil (India)', 'Telugu', 'Thai', 'Turkish',
+                      'Twi (Ghana)', 'Ukrainian', 'Unknown', 'Urdu (Pakistan)',
+                      'Vietnamese', 'Welsh')
+         ] <- 'English NOT Primary Language'
+
+  if (TRUE %in% is.na(newlang)) {
+    warning('Language conversion detected idiosyncratic input. Ensure
+            that column names were passed in the correct order and/or that
+            the query pulled currently supported data.')
+  }
+
   newlang <- as.factor(newlang)
   newlang
 }
@@ -202,10 +271,16 @@ recode_lang_status <- function(lang) {
 # Function for recoding gender into full names
 
 recode_gender <- function(gender) {
-  newgender <- c(1:length(gender))
+  newgender <- rep(NA, times = length(gender))
   newgender[gender == 'F'] <- 'Female'
   newgender[gender == 'M'] <- 'Male'
   newgender[gender == 'U'] <- 'Unknown'
+
+  if (TRUE %in% is.na(newgender)) {
+    warning('Gender conversion detected idiosyncratic input. Ensure
+            that column names were passed in the correct order and/or that
+            the query pulled currently supported data.')
+  }
 
   newgender <- as.factor(newgender)
   newgender
