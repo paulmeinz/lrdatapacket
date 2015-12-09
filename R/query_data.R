@@ -53,38 +53,38 @@ query_data <- function(connect_obj, query,
 
     # Recode course number into course level
     if (i == 'course_number') {
-      lrdata <- data.frame(lrdata, course_level = recode_course_level(data[,i]))
+      lrdata <- data.frame(lrdata, course_number = recode_course_level(data[,i]))
     }
 
     # Recode matriculation goal
     if (i == 'matr_goal') {
-      lrdata <- data.frame(lrdata, course_level = recode_ed_goal(data[,i]))
+      lrdata <- data.frame(lrdata, matr_goal = recode_ed_goal(data[,i]))
     }
 
     # Recode educational level
     if (i == 'ed_level') {
-      lrdata <- data.frame(lrdata, course_level = recode_ed_level(data[,i]))
+      lrdata <- data.frame(lrdata, ed_level = recode_ed_level(data[,i]))
     }
 
     # Recode freshman status
     if (i == 'enroll_status') {
-      lrdata <- data.frame(lrdata, course_level =
+      lrdata <- data.frame(lrdata, freshman_status =
                            recode_freshman_status(data[,i]))
     }
 
     # Recode inst mode
     if (i == 'inst_mode') {
-      lrdata <- data.frame(lrdata, course_level = recode_inst_mode(data[,i]))
+      lrdata <- data.frame(lrdata, inst_mode = recode_inst_mode(data[,i]))
     }
 
     # Recode language status
     if (i == 'language') {
-      lrdata <- data.frame(lrdata, course_level = recode_lang_status(data[,i]))
+      lrdata <- data.frame(lrdata, language = recode_lang_status(data[,i]))
     }
 
     # Recode gender
     if (i == 'gender') {
-      lrdata <- data.frame(lrdata, course_level = recode_gender(data[,i]))
+      lrdata <- data.frame(lrdata, gender = recode_gender(data[,i]))
     }
   }
 
