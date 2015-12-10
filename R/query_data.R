@@ -10,8 +10,8 @@
 #' and long subject ('Psychology')
 #' @param demo_names A character vector of column names corresponding with
 #' the order of columns in your sql query. The column names must be from
-#' a standard list corresponding with currently supported data (see details)
-#' and must contain 'id','term','subject', and 'subject_long'
+#' a standard list - each column name corresponding with currently supported
+#' data (see details) and must contain 'id','term','subject', and 'subject_long'
 #'
 #' @details
 #' In order for this function to yield the necessary data, the user
