@@ -29,3 +29,21 @@ set_colors <- function(acad_year) {
   color_scheme
 }
 
+
+# Determine x-axis label angles
+
+set_xaxis_label_loc <- function(xaxis) {
+
+  max_char <- max(nchar(levels(xaxis)))
+  n_levels <- length(levels(xaxis))
+
+  # If an xaxis factor has more than 2 levels and has a level that is more than
+  # 15 characters
+  if (max_char >= 15 & n_levels > 2) {
+    label_loc <- c(35, 1)
+    return(label_loc)
+  }
+
+  label_loc <- c(45, 0)
+  label_loc
+}
