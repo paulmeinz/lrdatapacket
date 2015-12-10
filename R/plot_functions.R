@@ -8,7 +8,7 @@
 #'
 
 
-headcount_demo_plot <- function(data, emplid_col = 1, demo_col = 2, term_col = 3
+disag_hc_plot <- function(data, emplid_col = 1, demo_col = 2, term_col = 3
                                 , year_col = 4) {
 
   # Make each emplid unique for term and year.
@@ -22,12 +22,10 @@ headcount_demo_plot <- function(data, emplid_col = 1, demo_col = 2, term_col = 3
   # Get total headcount by year
   total <- ddply(uniquedata,c(names(data)[year_col]), summarise,
                  total = length(EMPLID), .drop = F)
-  
+
   # Now merge the two
   plot_data <- merge(headcount, total, by.x = 'acadyear', by.y = 'acadyear')
 
-  # This next funciton takes a vector and determins a value label's justification on the basis of
-  # values in that vector
 
   myhj <- location(pltdata2$ages..1..,pltdata2$EMPLID.x/pltdata2$EMPLID.y)
   title <- paste('Headcount by Age Range:','\n',deptlong,year, sep = ' ')
