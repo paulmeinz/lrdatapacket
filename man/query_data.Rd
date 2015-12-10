@@ -32,8 +32,9 @@ column names (param demo_names) corresponding with the columns of the query.
 For example, if the first column of the query selected student id, then the
 first column name provided would be 'id'. The function will only support
 certain types of query data (e.g., student id, age, etc.), each of these
-data types has a standard column name that must be supplied. Each column name
-is listed below with associated query data.
+data types has a standard column name that must be supplied in the same order
+as the columns in the query. Each column name is listed below with associated
+query data.
 
 'id' - student id
 
