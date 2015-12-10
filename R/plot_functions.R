@@ -15,27 +15,28 @@ disag_hc_plot <- function(data, emplid_col = 1, demo_col = 2, term_col = 3
   unique_data <- unique(data[,c(emplid_col,demo_col,term_col,year_col)])
 
   # Get total headcount by demo/year
-  headcount <- ddply(unique_data,
+  headcount <- plyr::ddply(unique_data,
                     c(names(data)[demo_col],names(data)[year_col]),
-                    summarise, headcount = length(data,1), .drop = F)
+                    summarise, headcount = length(data[,1]), .drop = F)
 
   # Get total headcount by year
-  total <- ddply(uniquedata,c(names(data)[year_col]), summarise,
-                 total = length(EMPLID), .drop = F)
+  total <- plyr::ddply(unique_data,c(names(data)[year_col]), summarise,
+                 total = length(data[,emplid_col]), .drop = F)
 
   # Now merge the two
-  plot_data <- merge(headcount, total, by.x = 'acadyear', by.y = 'acadyear')
+  plot_data <- merge(headcount, total, by.x = names(data)[year_col],
+                     by.y = names(data)[year_col])
 
   # Use utils to calculate plot features (data level location, color, xaxis
   # label angle)
-  label_loc <- set_label_loc(data[, demo_col], headcount$headcount/total$total)
-  color_scheme <- set_colors(data[, year_col])
-  xaxis_loc <- set_xaxis_label_loc(data[, demo_col])
+  label_loc <- set_label_loc(plot_data[,names(data)[demo_col]], headcount$headcount/total$total)
+  color_scheme <- set_colors(plot_data[, names(data)[year_col]])
+  xaxis_loc <- set_xaxis_label_loc(plot_data[, names(data)[demo_col]])
 
   # Set title
   title <- paste('default plot title')
 
-
+  # Generate a plot
   plot <- ggplot(data = plot_data,
                  aes(x = names(data)[demo_col],
                  y = headcount/total,
@@ -52,7 +53,7 @@ disag_hc_plot <- function(data, emplid_col = 1, demo_col = 2, term_col = 3
           xlab("default label") +
           ylab("Percentage") +
           guides(fill=guide_legend(title="Academic Year")) +
-          scale_y_continuous(limits = c(0,1), label = percent)+
+          scale_y_continuous(limits = c(0,1))+
           theme(legend.position='bottom',
                 axis.text = element_text(size = 12),
                 axis.title = element_text (size = 12, face = 'bold'),

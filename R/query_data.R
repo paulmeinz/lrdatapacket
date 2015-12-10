@@ -90,7 +90,7 @@ query_data <- function(dsn, query,
   query <- tolower(query)
 
   # Connect to the db and query
-  conn <- RODBC::odbcConnect(connect_obj)
+  conn <- RODBC::odbcConnect(dsn)
   data <- RODBC::sqlQuery(conn, query)
   close(conn)
 
