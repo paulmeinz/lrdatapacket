@@ -16,3 +16,16 @@ set_label_loc <- function(xaxis, data) {
   hj[,2]
 
 }
+
+
+# Determine bar color scheme
+
+set_colors <- function(acad_year) {
+
+  # Use color blind friendly colors
+  colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#D55E00")
+  color_scheme <- colors[(6-length(levels(acad_year))):5]
+
+  color_scheme
+}
+
