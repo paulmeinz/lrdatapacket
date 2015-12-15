@@ -44,6 +44,6 @@ set_xaxis_label_loc <- function(xaxis) {
     return(label_loc)
   }
 
-  label_loc <- c(45, 0)
+  label_loc <- c(0, .5)
   label_loc
 }

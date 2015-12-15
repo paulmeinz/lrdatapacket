@@ -16,13 +16,12 @@ disag_hc_plot <- function(data, demo_col) {
   }
 
   # Change the demo_column name to generic name
-  demo <- names(data)  == demo_col
+  demo <- names(data) == demo_col
   names(data)[demo] <- 'demo_col'
 
   # Make each emplid unique for term and year.
   unique_data <- unique(data[, c('id', 'term', 'acad_year', 'demo_col')])
 
-  print(unique_data)
   # Get total headcount by demo/year
   headcount <- plyr::ddply(unique_data,
                     c('demo_col', 'acad_year'),
@@ -39,7 +38,6 @@ disag_hc_plot <- function(data, demo_col) {
 
   # Use utils to calculate plot features (data level location, color, xaxis
   # label angle
-  print(pt_data)
 
   label_loc <- set_label_loc(pt_data[, 'demo_col'],
                              pt_data$headcount/pt_data$total)
