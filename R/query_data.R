@@ -94,6 +94,12 @@ query_data <- function(dsn, query,
   data <- RODBC::sqlQuery(conn, query)
   close(conn)
 
+  # Print any sql errors
+  if (length(grep('ERROR', data)) > 0) {
+    print(data)
+    stop('There was an error in your query :(')
+  }
+
   # Assign column names in order
   for (i in 1:length(names(data))) {
     names(data)[i] <- demo_names[i]
