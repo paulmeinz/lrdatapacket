@@ -7,11 +7,12 @@
 #' readme on how to set up a data source name.
 #' @param query A sql query in the form of a character vector or length one
 #' the query must pull student id, term (e.g, 1139), subject (e.g., 'PSYC'),
-#' and long subject ('Psychology')
+#' long subject ('Psychology'), and official grade.
 #' @param demo_names A character vector of column names corresponding with
 #' the order of columns in your sql query. The column names must be from
 #' a standard list - each column name corresponding with currently supported
-#' data (see details) and must contain 'id','term','subject', and 'subject_long'
+#' data (see details) and must contain 'id','term','subject','subject_long',
+#' and 'grade'
 #'
 #' @details
 #' In order for this function to yield the necessary data, the user
@@ -74,7 +75,7 @@ query_data <- function(dsn, query,
   supported <- c('id','term', 'subject', 'subject_long', 'course_number', 'age',
                  'matr_goal', 'ed_level','ethnicity', 'enroll_status',
                  'inst_mode', 'language', 'gender', 'grade')
-  required <- c('id','term','subject','subject_long')
+  required <- c('id','term','subject','subject_long', 'grade')
   test <- required %in% demo_names
 
   # Note didn't use stopifnot because I wanted a custom error message

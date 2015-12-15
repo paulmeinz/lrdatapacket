@@ -4,8 +4,7 @@
 \alias{disag_hc_plot}
 \title{}
 \usage{
-disag_hc_plot(data, emplid_col = 1, demo_col = 2, term_col = 3,
-  year_col = 4)
+disag_hc_plot(data, demo_col, path, x_axis_lab = "", title = "")
 }
 \description{
 

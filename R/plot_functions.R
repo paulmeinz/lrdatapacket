@@ -101,7 +101,7 @@ disag_scs_plot <- function(data,
   names(data)[demo] <- 'demo_col'
 
   # Get average succes by year and demo
-  pt_data <- plyr::ddply(unique_data,
+  pt_data <- plyr::ddply(data,
                            c('demo_col', 'acad_year'),
                            summarise,
                            success = mean(success), .drop = F)
