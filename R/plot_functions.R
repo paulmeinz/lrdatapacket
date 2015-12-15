@@ -101,31 +101,33 @@ disag_scs_plot <- function(data,
   names(data)[demo] <- 'demo_col'
 
   # Get average succes by year and demo
-  pt_data <- plyr::ddply(data,
-                           c('demo_col', 'acad_year'),
-                           summarise,
-                           success = mean(success), .drop = F)
+  pt_data <- plyr::ddply(data, c('demo_col', 'acad_year'), summarise,
+                         success = mean(success), .drop = F)
 
   # Use utils to calculate plot features (data level location, color, xaxis
   # label angle
-
   label_loc <- set_label_loc(pt_data[, 'demo_col'],
-                             pt_data$success)
+                             pt_data$success/100)
   color_scheme <- set_colors(pt_data[, 'acad_year'])
   xaxis_loc <- set_xaxis_label_loc(pt_data[, 'demo_col'])
+
+  # Additional manipulation of data labels such that no data doesnt have a
+  # label
+  labels <- paste(round(pt_data$success, digit = 1), "%", sep = '')
+  labels[labels == "NaN%"] <- ''
+  pt_data$success[is.nan(pt_data$success)] <- 0.0
+  pt_data <- data.frame(pt_data, labels)
 
   # Generate a plot
   plot <- ggplot(data = pt_data,
                  aes(x = demo_col,
-                     y = success,
+                     y = success/100,
                      fill = acad_year)) +
     geom_bar(stat = 'identity', position = 'dodge') +
     geom_text(aes(x = demo_col,
-                  y = success,
-                  ymax = success,
-                  label = paste(round(success*100
-                                      , digit = 1),
-                                '%', sep = '')),
+                  y = success/100,
+                  ymax = success/100,
+                  label = labels),
               position=position_dodge(width=.9), vjust = .4, size = 4.5,
               angle = 90, hjust = label_loc) +
     scale_fill_manual(values = color_scheme) +
