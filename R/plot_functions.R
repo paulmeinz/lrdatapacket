@@ -8,43 +8,59 @@
 #'
 
 
-disag_hc_plot <- function(data, id_col, demo_col, term_col, year_col = 4) {
+disag_hc_plot <- function(data, demo_col) {
+
+  # Determine if data object of correct class
+  if (class(data)[2] != 'lrdataset') {
+    stop('This function only supports lrdataset data objects')
+  }
+
+  # Change the demo_column name to generic name
+  demo <- names(data)  == demo_col
+  names(data)[demo] <- 'demo_col'
 
   # Make each emplid unique for term and year.
-  unique_data <- unique(data[,c(id_col,demo_col,term_col,year_col)])
+  unique_data <- unique(data[, c('id', 'term', 'acad_year', 'demo_col')])
 
+  print(unique_data)
   # Get total headcount by demo/year
   headcount <- plyr::ddply(unique_data,
-                    c(demo_col,year_col),
-                    summarise, headcount = length(data[,id_col]), .drop = F)
+                    c('demo_col', 'acad_year'),
+                    summarise,
+                    headcount = length(id), .drop = F)
 
+  print('here 2')
   # Get total headcount by year
-  total <- plyr::ddply(unique_data,c(year_col), summarise,
-                 total = length(data[,id_col]), .drop = F)
+  total <- plyr::ddply(unique_data,c('acad_year'), summarise,
+                 total = length(id), .drop = F)
 
+  print('here 3')
   # Now merge the two
-  plot_data <- merge(headcount, total, by.x = year_col, by.y = year_col)
+  pt_data <- merge(headcount, total, by.x = 'acad_year', by.y = 'acad_year')
 
   # Use utils to calculate plot features (data level location, color, xaxis
   # label angle
-  label_loc <- set_label_loc(plot_data[, demo_col],
+  label_loc <- set_label_loc(pt_data[, 'demo_col'],
                              headcount$headcount/total$total)
-  color_scheme <- set_colors(plot_data[, year_col])
-  xaxis_loc <- set_xaxis_label_loc(plot_data[, demo_col])
+  color_scheme <- set_colors(pt_data[, 'acad_year'])
+  xaxis_loc <- set_xaxis_label_loc(pt_data[, 'demo_col'])
 
   # Set title
   title <- paste('default plot title')
 
+  print(names(pt_data))
   # Generate a plot
-  plot <- ggplot(data = plot_data,
+  plot <- ggplot(data = pt_data,
                  aes(x = demo_col,
                  y = headcount/total,
-                 fill = year_col)) +
+                 fill = acad_year)) +
           geom_bar(stat = 'identity', position = 'dodge') +
-          geom_text(data = plot_data, aes(x = demo_col, y = headcount/total,
-                    ymax = headcount/total,
-                    label = paste(round(headcount/total*100, digit = 1),
-                                  '%', sep = '')),
+          geom_text(aes(x = demo_col,
+                        y = headcount/total,
+                        ymax = headcount/total,
+                        label = paste(round(headcount/total*100
+                                            , digit = 1),
+                        '%', sep = '')),
                     position=position_dodge(width=.9), vjust = .4, size = 4.5,
                     angle = 90, hjust = label_loc) +
           scale_fill_manual(values = color_scheme) +
