@@ -29,26 +29,26 @@ disag_hc_plot <- function(data, demo_col) {
                     summarise,
                     headcount = length(id), .drop = F)
 
-  print('here 2')
   # Get total headcount by year
   total <- plyr::ddply(unique_data,c('acad_year'), summarise,
                  total = length(id), .drop = F)
 
-  print('here 3')
+
   # Now merge the two
   pt_data <- merge(headcount, total, by.x = 'acad_year', by.y = 'acad_year')
 
   # Use utils to calculate plot features (data level location, color, xaxis
   # label angle
+  print(pt_data)
+
   label_loc <- set_label_loc(pt_data[, 'demo_col'],
-                             headcount$headcount/total$total)
+                             pt_data$headcount/pt_data$total)
   color_scheme <- set_colors(pt_data[, 'acad_year'])
   xaxis_loc <- set_xaxis_label_loc(pt_data[, 'demo_col'])
 
   # Set title
   title <- paste('default plot title')
 
-  print(names(pt_data))
   # Generate a plot
   plot <- ggplot(data = pt_data,
                  aes(x = demo_col,
