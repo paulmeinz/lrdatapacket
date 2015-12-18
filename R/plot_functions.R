@@ -157,15 +157,19 @@ disag_scs_plot <- function(data,
 plot_headcounts <- function(data, path, title = '', undup = TRUE) {
 
   if (undup) {
-    headcount <- unique(data[,c('id','term_desc')])
-    pt_data <- aggregate(id ~ term_desc, data = data, length)
+    headcount <- unique(data[,c('id','term_desc','term')])
+    pt_data <- aggregate(id ~ term_desc + term, data = data, length)
     y_title <- 'Unduplicated'
   }
 
   else {
-    pt_data <- aggregate(id ~ term_desc, data = data, length)
+    pt_data <- aggregate(id ~ term_desc + term, data = data, length)
     y_title <- 'Duplicated'
   }
+
+  pt_data$term_desc <- factor(pt_data$term_desc,
+                              levels = pt_data$term_desc[order(pt_data$term)],
+                              ordered = T)
 
   low <- min(pt_data$id)
   high <- max(pt_data$id)
