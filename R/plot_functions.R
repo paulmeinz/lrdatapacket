@@ -28,13 +28,13 @@ disag_hc_plot <- function(data,
 
   # Get total headcount by demo/year
   headcount <- plyr::ddply(unique_data,
-                    c('demo_col', 'acad_year'),
-                    summarise,
-                    headcount = length(id), .drop = F)
+                           c('demo_col', 'acad_year'),
+                           summarise,
+                           headcount = length(id), .drop = F)
 
   # Get total headcount by year
   total <- plyr::ddply(unique_data,c('acad_year'), summarise,
-                 total = length(id), .drop = F)
+                       total = length(id), .drop = F)
 
 
   # Now merge the two
