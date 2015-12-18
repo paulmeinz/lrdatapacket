@@ -158,7 +158,7 @@ plot_headcounts <- function(data, path, title = '', undup = TRUE) {
 
   if (undup) {
     headcount <- unique(data[,c('id','term_desc','term')])
-    pt_data <- aggregate(id ~ term_desc + term, data = data, length)
+    pt_data <- aggregate(id ~ term_desc + term, data = headcount, length)
     y_title <- 'Unduplicated'
   }
 
