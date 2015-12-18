@@ -4,23 +4,23 @@
 \alias{query_data}
 \title{Query data for standard data packet}
 \usage{
-query_data(dsn, query, demo_names = c("id", "term", "subject", "subject_long",
-  "course_number", "age", "matr_goal", "ed_level", "ethnicity", "enroll_status",
-  "inst_mode", "language", "gender", "grade"))
+query_data(dsn, query, demo_names = c("id", "term", "term_desc", "subject",
+  "subject_long", "course_number", "age", "matr_goal", "ed_level", "ethnicity",
+  "enroll_status", "inst_mode", "language", "gender", "grade"))
 }
 \arguments{
 \item{dsn}{A data source name for the archive side of the LRDB. See the
 readme on how to set up a data source name.}
 
 \item{query}{A sql query in the form of a character vector or length one
-the query must pull student id, term (e.g, 1139), subject (e.g., 'PSYC'),
-long subject ('Psychology'), and official grade.}
+the query must pull student id, term (e.g, 1139), term description,
+subject (e.g., 'PSYC'),long subject ('Psychology'), and official grade.}
 
 \item{demo_names}{A character vector of column names corresponding with
 the order of columns in your sql query. The column names must be from
 a standard list - each column name corresponding with currently supported
 data (see details) and must contain 'id','term','subject','subject_long',
-and 'grade'}
+'grade', and 'term_desc'}
 }
 \description{
 A function for querying demographic data for standard college
