@@ -111,7 +111,8 @@ query_data <- function(dsn, query,
     stop("Columns in dataset are not the same length as names provided")
   }
 
-  lrdata <- data.frame(id = data[,'id'], term = data[,'term'])
+  lrdata <- data.frame(id = data[,'id'], term = data[,'term'],
+                       term_desc = data[,'term_desc'])
 
   # Process data based on column names
   for (i in names(data)) {

@@ -152,3 +152,43 @@ disag_scs_plot <- function(data,
   ggsave(path, width=8.694, height=6.9583, dpi=72)
 
 }
+
+
+plot_headcounts <- function(data, path, title = '', undup = TRUE) {
+
+  if (undup) {
+    headcount <- unique(data[,c('id','term_desc')])
+    pt_data <- aggregate(id ~ term_desc, data = data, length)
+    y_title <- 'Unduplicated'
+  }
+
+  else {
+    pt_data <- aggregate(id ~ term_desc, data = data, length)
+    y_title <- 'Duplicated'
+  }
+
+  low <- min(pt_data$id)
+  high <- max(pt_data$id)
+  low <- low - low/2
+  high <- high + high/2
+
+  plot <- ggplot(data = pt_data, aes(x = term_desc, y = id)) +
+    geom_line(aes(group = 1)) +
+    geom_point() +
+    xlab("Academic Term") +
+    ylab(paste(y_title, "Headcount", sep = ' ')) +
+    ggtitle(title) +
+    geom_text(aes(x = term_desc, y = id, ymax = id, label = id),
+                  position=position_dodge(width=.9), vjust = -.3, size = 4.5,
+                  hjust = 0, angle = 35) +
+    scale_y_continuous(limit = c(low, high)) +
+    theme(axis.text = element_text(size = 10),
+                                   axis.title = element_text(size = 12,
+                                                             face = 'bold'),
+          plot.title = element_text(size = 14, face = 'bold'),
+          axis.text.x = element_text(angle = 35, hjust = 1, colour='black'),
+          axis.text.y = element_text(colour='black'))
+
+  print(plot)
+  ggsave(path, width=8.694, height=6.9583, dpi=72)
+}
