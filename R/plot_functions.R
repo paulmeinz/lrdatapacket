@@ -53,7 +53,11 @@ disag_hc_plot <- function(data,
                  aes(x = demo_col,
                  y = headcount/total,
                  fill = acad_year)) +
+
+          # Add barchart type
           geom_bar(stat = 'identity', position = 'dodge') +
+
+          # Modify test aesthetics
           geom_text(aes(x = demo_col,
                         y = headcount/total,
                         ymax = headcount/total,
@@ -62,7 +66,11 @@ disag_hc_plot <- function(data,
                         '%', sep = '')),
                     position=position_dodge(width=.9), vjust = .4, size = 4.5,
                     angle = 90, hjust = label_loc) +
+
+          # Add color blind friendly scheme
           scale_fill_manual(values = color_scheme) +
+
+          # Title and some additional themes
           ggtitle(title)+
           xlab(x_axis_lab) +
           ylab("Percentage") +
@@ -80,6 +88,7 @@ disag_hc_plot <- function(data,
                 axis.text.y=element_text(colour='black'))
 
 
+  # Display and save the plot
   print(plot)
   ggsave(path, width=8.694, height=6.9583, dpi=72)
 }
@@ -123,14 +132,22 @@ disag_scs_plot <- function(data,
                  aes(x = demo_col,
                      y = success/100,
                      fill = acad_year)) +
+
+    # Set chart type
     geom_bar(stat = 'identity', position = 'dodge') +
+
+    # Set text aesthetics
     geom_text(aes(x = demo_col,
                   y = success/100,
                   ymax = success/100,
                   label = labels),
               position=position_dodge(width=.9), vjust = .4, size = 4.5,
               angle = 90, hjust = label_loc) +
+
+    # Set color blind color scheme
     scale_fill_manual(values = color_scheme) +
+
+    # Set axis titles and more aesthetics
     ggtitle(title)+
     xlab(x_axis_lab) +
     ylab("Percentage") +
@@ -147,7 +164,7 @@ disag_scs_plot <- function(data,
                                      , colour='black'),
           axis.text.y=element_text(colour='black'))
 
-
+  # Display and export
   print(plot)
   ggsave(path, width=8.694, height=6.9583, dpi=72)
 
@@ -156,29 +173,38 @@ disag_scs_plot <- function(data,
 
 plot_headcounts <- function(data, path, title = '', undup = TRUE) {
 
+  # If undup is true then deduplify by term
   if (undup) {
     headcount <- unique(data[,c('id','term_desc','term')])
     pt_data <- aggregate(id ~ term_desc + term, data = headcount, length)
     y_title <- 'Unduplicated'
   }
 
+  # Otherwise don't deuplify
   else {
     pt_data <- aggregate(id ~ term_desc + term, data = data, length)
     y_title <- 'Duplicated'
   }
 
+  # Order term description by term for plotting, save as an ordered factor
   pt_data$term_desc <- factor(pt_data$term_desc,
                               levels = pt_data$term_desc[order(pt_data$term)],
                               ordered = T)
 
+  # Get plot min max values
   low <- min(pt_data$id)
   high <- max(pt_data$id)
   low <- low - low/2
   high <- high + high/2
 
+  # Make a line chart
   plot <- ggplot(data = pt_data, aes(x = term_desc, y = id)) +
+
+    # Set plot type as line/point
     geom_line(aes(group = 1)) +
     geom_point() +
+
+    # Set titles and other aesthetics
     xlab("Academic Term") +
     ylab(paste(y_title, "Headcount", sep = ' ')) +
     ggtitle(title) +
@@ -193,6 +219,7 @@ plot_headcounts <- function(data, path, title = '', undup = TRUE) {
           axis.text.x = element_text(angle = 35, hjust = 1, colour='black'),
           axis.text.y = element_text(colour='black'))
 
+  # Display and save the plot
   print(plot)
   ggsave(path, width=8.694, height=6.9583, dpi=72)
 }
