@@ -42,7 +42,6 @@ disag_hc_plot <- function(data,
 
   # Use utils to calculate plot features (data level location, color, xaxis
   # label angle
-
   label_loc <- set_label_loc(pt_data[, 'demo_col'],
                              pt_data$headcount/pt_data$total)
   color_scheme <- set_colors(pt_data[, 'acad_year'])
