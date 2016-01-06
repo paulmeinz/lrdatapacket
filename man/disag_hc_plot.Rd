@@ -2,11 +2,34 @@
 % Please edit documentation in R/plot_functions.R
 \name{disag_hc_plot}
 \alias{disag_hc_plot}
-\title{}
+\title{Generate a disaggregated headcount plot}
 \usage{
 disag_hc_plot(data, demo_col, path, x_axis_lab = "", title = "")
 }
-\description{
+\arguments{
+\item{data}{A lrdataset object generated from the query_gen function.}
 
+\item{demo_col}{The name of a demographic variable in the lrdataset object.
+This demographic variable will be used to disaggregate.}
+
+\item{path}{A file path to where you would like to save your plot.}
+
+\item{x_axis_lab}{The x-axis label.}
+
+\item{title}{The plot title}
+}
+\description{
+Takes a lrdataset object (generated from the query_data function) and
+produces a headcount plot for the past five years for disaggregated by a
+demographic variable.
+}
+\details{
+You must use a lrdataset object with this function. The purpose of this
+restruction is to ensure that the dataset has only standard data and column
+names
+}
+\examples{
+\dontrun{disag_hc_plot(data, 'gender', 'User/documents/ex.jpg','Gender',
+'xaxislabel')}
 }
 

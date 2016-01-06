@@ -1,11 +1,24 @@
+#' Generate a disaggregated headcount plot
 #'
+#' Takes a lrdataset object (generated from the query_data function) and
+#' produces a headcount plot for the past five years for disaggregated by a
+#' demographic variable.
 #'
+#' @param data A lrdataset object generated from the query_gen function.
+#' @param demo_col The name of a demographic variable in the lrdataset object.
+#' This demographic variable will be used to disaggregate.
+#' @param path A file path to where you would like to save your plot.
+#' @param x_axis_lab The x-axis label.
+#' @param title The plot title
 #'
+#' @details
+#' You must use a lrdataset object with this function. The purpose of this
+#' restruction is to ensure that the dataset has only standard data and column
+#' names
 #'
-#'
-#'
-#'
-#'
+#' @examples
+#' \dontrun{disag_hc_plot(data, 'gender', 'User/documents/ex.jpg','Gender',
+#' 'xaxislabel')}
 
 
 disag_hc_plot <- function(data,
