@@ -1,8 +1,10 @@
-#' Generate a disaggregated headcount plot
+#' Generate a summary demographic plot
 #'
 #' Takes a lrdataset object (generated from the query_data function) and
-#' produces a headcount plot for the past five years for disaggregated by a
-#' demographic variable.
+#' produces a plot for the past five years for disaggregated by a
+#' demographic variable. disag_hc_plot produces a disaggregated demographic
+#' plot, disag_scs_plot produces a disaggregated success plot, and
+#' plot_headcounts produces a headcount (duplicated or unduplicated) plot.
 #'
 #' @param data A lrdataset object generated from the query_gen function.
 #' @param demo_col The name of a demographic variable in the lrdataset object.

@@ -4,7 +4,7 @@
 \alias{disag_hc_plot}
 \alias{disag_scs_plot}
 \alias{plot_headcounts}
-\title{Generate a disaggregated headcount plot}
+\title{Generate a summary demographic plot}
 \usage{
 disag_hc_plot(data, demo_col, path, x_axis_lab = "", title = "")
 
@@ -26,8 +26,10 @@ This demographic variable will be used to disaggregate.}
 }
 \description{
 Takes a lrdataset object (generated from the query_data function) and
-produces a headcount plot for the past five years for disaggregated by a
-demographic variable.
+produces a plot for the past five years for disaggregated by a
+demographic variable. disag_hc_plot produces a disaggregated demographic
+plot, disag_scs_plot produces a disaggregated success plot, and
+plot_headcounts produces a headcount (duplicated or unduplicated) plot.
 }
 \details{
 You must use a lrdataset object with this function. The purpose of this
