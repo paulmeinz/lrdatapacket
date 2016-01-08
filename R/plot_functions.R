@@ -13,7 +13,7 @@
 #'
 #' @details
 #' You must use a lrdataset object with this function. The purpose of this
-#' restruction is to ensure that the dataset has only standard data and column
+#' restriction is to ensure that the dataset has only standard data and column
 #' names
 #'
 #' @examples
