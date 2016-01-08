@@ -2,9 +2,15 @@
 % Please edit documentation in R/plot_functions.R
 \name{disag_hc_plot}
 \alias{disag_hc_plot}
+\alias{disag_scs_plot}
+\alias{plot_headcounts}
 \title{Generate a disaggregated headcount plot}
 \usage{
 disag_hc_plot(data, demo_col, path, x_axis_lab = "", title = "")
+
+disag_scs_plot(data, demo_col, path, x_axis_lab = "", title = "")
+
+plot_headcounts(data, path, title = "", undup = TRUE)
 }
 \arguments{
 \item{data}{A lrdataset object generated from the query_gen function.}
@@ -28,6 +34,12 @@ You must use a lrdataset object with this function. The purpose of this
 restriction is to ensure that the dataset has only standard data and column
 names
 }
+\section{Functions}{
+\itemize{
+\item \code{disag_scs_plot}: Produce a Success Rate Plot
+
+\item \code{plot_headcounts}: Produce a Headcount Plot
+}}
 \examples{
 \dontrun{disag_hc_plot(data, 'gender', 'User/documents/ex.jpg','Gender',
 'xaxislabel')}
