@@ -21,6 +21,8 @@
 #' @examples
 #' \dontrun{disag_hc_plot(data, 'gender', 'User/documents/ex.jpg','Gender',
 #' 'xaxislabel')}
+#'
+#' @export
 
 
 disag_hc_plot <- function(data,
