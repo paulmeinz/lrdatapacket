@@ -110,6 +110,7 @@ disag_hc_plot <- function(data,
 }
 
 #' @describeIn disag_hc_plot Produce a Success Rate Plot
+#' @export
 
 disag_scs_plot <- function(data,
                            demo_col,
@@ -188,6 +189,7 @@ disag_scs_plot <- function(data,
 }
 
 #' @describeIn disag_hc_plot Produce a Headcount Plot
+#' @export
 
 plot_headcounts <- function(data, path, title = '', undup = TRUE) {
 
