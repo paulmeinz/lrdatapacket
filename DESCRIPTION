@@ -1,8 +1,17 @@
 Package: lrdatapacket
-Title: What the Package Does (one line, title case)
+Title: Descriptive plots for the LRCCD community college district.
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph)
-Depends: R (>= 3.2.2)
+Authors@R: c(
+    person("Paul", "Meinz", email = "meinzp@crc.losrios.edu", role = c("aut", "cre")),
+    person("Sabrina", "Sencil", email = "", role = c("aut", "ctb")),
+    person("Brad", "Brazil", email = "", role = c("aut")))
+Description: A collection of functions that helps researchers in the LRCCD
+    present useful trends in success/headcount over the past five years.
+    Creates graphical depictions of data.
+Depends: R (>= 3.2.0)
 License: What license is it under?
 LazyData: true
+Imports:
+    ggplot2,
+    dplyr,
+    RODBC
