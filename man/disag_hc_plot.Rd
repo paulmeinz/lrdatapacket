@@ -26,7 +26,7 @@ This demographic variable will be used to disaggregate.}
 }
 \description{
 Takes a lrdataset object (generated from the query_data function) and
-produces a plot for the past five years for disaggregated by a
+produces a plot for the past five years disaggregated by a
 demographic variable. disag_hc_plot produces a disaggregated demographic
 plot, disag_scs_plot produces a disaggregated success plot, and
 plot_headcounts produces a headcount (duplicated or unduplicated) plot.
