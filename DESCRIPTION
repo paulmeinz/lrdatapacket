@@ -9,7 +9,7 @@ Description: A collection of functions that helps researchers in the LRCCD
     present useful trends in success/headcount over the past five years.
     Creates graphical depictions of data.
 Depends: R (>= 3.2.0)
-License: What license is it under?
+License: GPL-2
 LazyData: true
 Imports:
     ggplot2,
