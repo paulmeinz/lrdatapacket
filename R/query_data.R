@@ -114,7 +114,7 @@ query_data <- function(dsn, query,
 
   lrdata <- data.frame(id = data[,'id'], term = data[,'term'],
                        term_desc = data[,'term_desc'],
-                       subect = data[,'subject'],
+                       subject = data[,'subject'],
                        subject_long = data[,'subject_long'])
 
   # Process data based on column names
