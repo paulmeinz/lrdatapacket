@@ -154,7 +154,7 @@ query_data <- function(dsn, query,
 
     # Recode freshman status
     if (i == 'enroll_status') {
-      lrdata <- data.frame(lrdata, freshman_status =
+      lrdata <- data.frame(lrdata, enroll_status =
                            recode_freshman_status(data[,i]))
     }
 
