@@ -1,8 +1,4 @@
-#'
-#'
-#'
-#'
-#'
+
 
 generate_packets <- function(data,
                              path,
