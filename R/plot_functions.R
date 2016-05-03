@@ -9,7 +9,8 @@
 #' @param data A lrdataset object generated from the query_gen function.
 #' @param demo_col The name of a demographic variable in the lrdataset object.
 #' This demographic variable will be used to disaggregate.
-#' @param path A file path to where you would like to save your plot.
+#' @param path A file path to where you would like to save your plot. The 
+#' filepath must end in the filename (e.g. 'path/filename.jpg')
 #' @param x_axis_lab The x-axis label.
 #' @param title The plot title
 #'

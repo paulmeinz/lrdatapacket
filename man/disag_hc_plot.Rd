@@ -18,7 +18,8 @@ plot_headcounts(data, path, title = "", undup = TRUE)
 \item{demo_col}{The name of a demographic variable in the lrdataset object.
 This demographic variable will be used to disaggregate.}
 
-\item{path}{A file path to where you would like to save your plot.}
+\item{path}{A file path to where you would like to save your plot. The
+filepath must end in the filename (e.g. 'path/filename.jpg')}
 
 \item{x_axis_lab}{The x-axis label.}
 
