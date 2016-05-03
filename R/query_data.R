@@ -64,6 +64,9 @@
 #'            demo_names = c('id','term','subject','subject_long'))
 #'            }
 #' @export
+#' @import dplyr
+#' @import ggplot2
+#' @import RODBC
 
 query_data <- function(dsn, query,
                        demo_names = c('id', 'term', 'term_desc','subject',
